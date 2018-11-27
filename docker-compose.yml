@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+
+  # Solutions
+  api_rails:
+    restart: always
+    build: ./api_rails
+    env_file: .env
+    volumes:
+      - ./api_rails:/app
+    ports:
+      - 127.0.0.1:8085:3000
+    depends_on:
+      - postgres
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+
+
+  # Database
+  postgres:
+    restart: always
+    image: postgres
+    env_file: .env
+    volumes:
+      - postdata:/var/lib/postgresql/data
+
+
+  # Tester script
+  tester:
+    build: ./tester
+    env_file: .env
+    environment:
+      - SOLUTION_HOST=api_${SOLUTION}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./tester:/app
+    depends_on:
+    - api_rails
+    - postgres
+    command: bundle exec rspec
+
+
+volumes:
+  postdata:
