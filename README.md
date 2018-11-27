@@ -1,18 +1,23 @@
-Pour tout lancer, si docker et docker-compose sont installés :
+# Test shipments api
+
+To launch all the things, if docker and docker-compose are installed:
 
 `SOLUTION=rails docker-compose run tester`
 
-Les options pour SOLUTION sont `rails`, `sinatra` et `phoenix`.
+The options for SOLUTION are:
+- `rails`
+- `sinatra` (coming soon)
+- `phoenix` (coming soon)
 
-Bien sûr, le fichier `.env` ne doit pas être mis sur Git, mais je l'ai fait pour simplicité.
+Of course, the `.env` file should not be put at Git, but I did it for convenience.
 
 ## Rails solution
 
-J'ai essayé de suivre le "Rails way" au maximum, en utilisant l'intélligence de ActiveRecord, de Action Controller et du moteur des views.
+Learning Ruby on Rails, I tried to follow the Rails way, mostly using the capabilities of the framework itself, rather than reinventing the wheel.
 
-Pour rendre le json, j'ai choisi `Jbuilder` pour ces raisons :
+For json rendering I chose [Jbuilder](https://github.com/rails/jbuilder) for these reasons:
 
-1. C'est la solution native qui utilise les conventions de Ruby on Rails pour les views, donc le code reste minimaliste 
-2. Son syntaxe de templating est straightforward et puissant
+1. It's a native Rails solution, and it lets to keep the controllers lean
+2. Its templating syntax is straightforward and powerful
 
-J'ai aussi utilisé les gems `has_scope` for filtering et `kaminari` for pagination.
+I've also used the gems [has_scope](https://github.com/plataformatec/has_scope) for filtering and [kaminari](https://github.com/kaminari/kaminari) for pagination.
